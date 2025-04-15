@@ -9,43 +9,29 @@ import Foundation
 import SwiftData
 
 @Model
-class Habit {
+class DailyHabit {
     var uuid = UUID().uuidString
     var date: Date
-    var timeSlot: TimeSlot
-    
-    var habitRawValue: String
-    
-    var habit: HabitTypeProtocol? {
-        switch timeSlot {
-        case .morning:
-            return MorningHabitType(rawValue: habitRawValue)
-        case .afternoon:
-            return AfternoonHabitType(rawValue: habitRawValue)
-        }
-    }
-    
-    var quantity: Int? = nil
-    var startTime: Date? = nil
-    var endTime: Date? = nil
+    var morningHabit: MorningHabit?
+    var afternoonHabit: AfternoonHabit?
+    var eveningHabit: EveningHabit?
+    var extraHabit: ExtraHabit?
     
     init(
         date: Date,
-        timeSlot: TimeSlot,
-        habitRawValue: String
-        ) {
+        morningHabit: MorningHabit? = nil,
+        afternoonHabit: AfternoonHabit? = nil,
+        eveningHabit: EveningHabit? = nil,
+        extraHabit: ExtraHabit? = nil
+    ) {
         self.date = date
-        self.timeSlot = timeSlot
-        self.habitRawValue = habitRawValue
+        self.morningHabit = morningHabit
+        self.afternoonHabit = afternoonHabit
+        self.eveningHabit = eveningHabit
+        self.extraHabit = extraHabit
     }
 }
 
-extension Habit {
-    static var habitStub01: Habit {
-        .init(date: Date(), timeSlot: .morning, habitRawValue: MorningHabitType.drinkWater.rawValue)
-    }
-    
-    static var habitStub02: Habit {
-        .init(date: Date(), timeSlot: .morning, habitRawValue: MorningHabitType.drinkWater.rawValue)
-    }
+extension DailyHabit {
+    static var dailyHabit01: DailyHabit = .init(date: Date(), morningHabit: .stub01, afternoonHabit: .stub01, eveningHabit: <#T##EveningHabit?#>, extraHabit: <#T##ExtraHabit?#>)
 }
