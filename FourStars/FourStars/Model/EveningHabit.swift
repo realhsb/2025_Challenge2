@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class EveningHabit {
+class EveningHabit: HabitDetail {
     var uuid: String = UUID().uuidString
     var timeSlot: TimeSlot = TimeSlot.morning
     var habit: EveningHabitType?
