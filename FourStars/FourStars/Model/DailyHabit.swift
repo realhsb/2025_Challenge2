@@ -33,5 +33,5 @@ class DailyHabit {
 }
 
 extension DailyHabit {
-    static var dailyHabit01: DailyHabit = .init(date: Date(), morningHabit: .stub01, afternoonHabit: .stub01, eveningHabit: <#T##EveningHabit?#>, extraHabit: <#T##ExtraHabit?#>)
+    static var dailyHabit01: DailyHabit = .init(date: Date(), morningHabit: .stub01, afternoonHabit: .stub01, eveningHabit: .stub01, extraHabit: .stub01)
 }

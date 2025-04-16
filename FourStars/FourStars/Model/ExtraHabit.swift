@@ -39,3 +39,7 @@ enum ExtraHabitType: String, CaseIterable, Identifiable, Codable {
 
     var id: String { rawValue }
 }
+
+extension ExtraHabit {
+    static var stub01: ExtraHabit = .init(habit: .deepBreath, quantity: nil, startTime: nil, endTime: nil)
+}
