@@ -1,5 +1,5 @@
 //
-//  AfternoonHabit.swift
+//  EveningHabit.swift
 //  FourStars
 //
 //  Created by Soop on 4/15/25.
@@ -9,17 +9,17 @@ import Foundation
 import SwiftData
 
 @Model
-class AfternoonHabit: HabitDetail {
+class EveningHabit: HabitDetail {
     var uuid: String = UUID().uuidString
     var timeSlot: TimeSlot = TimeSlot.morning
-    var habit: AfternoonHabitType?
-    
+    var habit: EveningHabitType?
+
     var quantity: Int?
     var startTime: Date?
     var endTime: Date?
     
     init(
-        habit: AfternoonHabitType? = nil,
+        habit: EveningHabitType? = nil,
         quantity: Int? = nil,
         startTime: Date? = nil,
         endTime: Date? = nil
@@ -32,14 +32,14 @@ class AfternoonHabit: HabitDetail {
     }
 }
 
-enum AfternoonHabitType: String, CaseIterable, Identifiable, Codable {
-    case walk = "산책"
-    case read = "책"
-    case meditate = "명상"
-    
+enum EveningHabitType: String, CaseIterable, Identifiable, Codable {
+    case reflect = "하루 회고"
+    case journal = "일기 쓰기"
+    case tidyUp = "정리 정돈"
+
     var id: String { rawValue }
 }
 
-extension AfternoonHabit {
-    static var stub01: AfternoonHabit = .init(habit: .meditate, quantity: nil, startTime: nil, endTime: nil)
+extension EveningHabit {
+    static var stub01: EveningHabit = .init(habit: .journal, quantity: nil, startTime: nil, endTime: nil)
 }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol HabitDetail {
     var quantity: Int? { get set }
+    
     var startTime: Date? { get set }
     var endTime: Date? { get set }
 }

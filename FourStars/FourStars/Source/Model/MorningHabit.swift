@@ -54,5 +54,5 @@ enum MorningHabitType: String, CaseIterable, Identifiable, Codable {
 }
 
 extension MorningHabit {
-    static var stub01: MorningHabit = .init(habit: .drinkWater, quantity: 1, startTime: nil, endTime: nil)
+    static var stub01: MorningHabit = .init(habit: .drinkWater, quantity: nil, startTime: nil, endTime: nil)
 }
