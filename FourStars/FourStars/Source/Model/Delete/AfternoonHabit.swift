@@ -9,25 +9,21 @@ import Foundation
 import SwiftData
 
 @Model
-class AfternoonHabit: BaseHabit {
+class AfternoonHabit {
+    var timeSlot: TimeSlot = TimeSlot.afternoon
     var habit: AfternoonHabitType?
+    
+    @Relationship
+    var baseHabit: BaseHabit
 
     init(
         habit: AfternoonHabitType? = nil,
-        quantity: Int? = nil,
-        startTime: Date? = nil,
-        endTime: Date? = nil
+        baseHabit: BaseHabit
     ) {
         self.habit = habit
-        super.init(
-            timeSlot: .afternoon,
-            quantity: quantity,
-            startTime: startTime,
-            endTime: endTime
-        )
+        self.baseHabit = baseHabit
     }
 }
-
 
 enum AfternoonHabitType: String, CaseIterable, Identifiable, Codable {
     case walk = "산책"
@@ -37,6 +33,6 @@ enum AfternoonHabitType: String, CaseIterable, Identifiable, Codable {
     var id: String { rawValue }
 }
 
-extension AfternoonHabit {
-    static var stub01: AfternoonHabit = .init(habit: .meditate, quantity: nil, startTime: nil, endTime: nil)
-}
+//extension AfternoonHabit {
+//    static var stub01: AfternoonHabit = .init(habit: .meditate, quantity: nil, startTime: nil, endTime: nil)
+//}

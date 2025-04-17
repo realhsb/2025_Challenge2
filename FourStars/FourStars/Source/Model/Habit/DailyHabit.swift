@@ -10,28 +10,24 @@ import SwiftData
 
 @Model
 class DailyHabit {
-    var uuid = UUID().uuidString
-    var date: Date
-    var morningHabit: MorningHabit?
-    var afternoonHabit: AfternoonHabit?
-    var eveningHabit: EveningHabit?
-    var extraHabit: ExtraHabit?
+    var today: Date
+    
+    @Relationship var morningHabit: MorningHabit?
+    @Relationship var afternoonHabit: AfternoonHabit?
+    @Relationship var eveningHabit: EveningHabit?
+    @Relationship var extraHabit: ExtraHabit?
     
     init(
-        date: Date,
+        today: Date,
         morningHabit: MorningHabit? = nil,
         afternoonHabit: AfternoonHabit? = nil,
         eveningHabit: EveningHabit? = nil,
         extraHabit: ExtraHabit? = nil
     ) {
-        self.date = date
+        self.today = today
         self.morningHabit = morningHabit
         self.afternoonHabit = afternoonHabit
         self.eveningHabit = eveningHabit
         self.extraHabit = extraHabit
     }
-}
-
-extension DailyHabit {
-    static var dailyHabit01: DailyHabit = .init(date: Date(), morningHabit: .stub01, afternoonHabit: .stub01, eveningHabit: .stub01, extraHabit: .stub01)
 }

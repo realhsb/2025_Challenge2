@@ -10,34 +10,21 @@ import Foundation
 
 @Model
 class HabitResult {
-    var statusRaw: String
-    var starRaw: String
 
-    var status: HabitStatus {
-        get { HabitStatus(rawValue: statusRaw) ?? .notDone }
-        set { statusRaw = newValue.rawValue }
-    }
+    var status: HabitStatus = HabitStatus.notDone
+    var star: Star
 
-    var star: Star {
-        get { Star(rawValue: starRaw) ?? .gray }
-        set { starRaw = newValue.rawValue }
-    }
-
-    init(status: HabitStatus) {
-        self.statusRaw = status.rawValue
+    init(
+        status: HabitStatus
+    ) {
+        
         switch status {
         case .notDone:
-            self.starRaw = Star.gray.rawValue
+            self.star = Star.gray
         case .failure:
-            self.starRaw = Star.red.rawValue
+            self.star = Star.red
         case .success:
-            self.starRaw = Star.successColors.randomElement()?.rawValue ?? Star.yellow.rawValue
+            self.star = Star.successColors.randomElement() ?? Star.yellow
         }
-    }
-
-    // SwiftData requires a no-arg init
-    init() {
-        self.statusRaw = HabitStatus.notDone.rawValue
-        self.starRaw = Star.gray.rawValue
     }
 }

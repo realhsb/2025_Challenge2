@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum HabitStatus: String {
-    case notDone = "notDone"
-    case success = "success"
-    case failure = "failure"
+enum HabitStatus: Codable {
+    case notDone
+    case success
+    case failure
     
     var star: Star {
             switch self {
