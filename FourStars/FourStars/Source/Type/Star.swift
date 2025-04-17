@@ -35,4 +35,12 @@ enum Star: String, Codable, CaseIterable {
             return Image("Star_Yellow")
         }
     }
+    
+    static var successColors: [Star] {
+            return [.lightBlue, .orange, .pink, .purple, .yellow]
+    }
+        
+//    var image: Image {
+//        Image("Star_\(rawValue.capitalized)")
+//    }
 }

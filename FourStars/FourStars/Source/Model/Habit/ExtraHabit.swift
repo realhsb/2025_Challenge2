@@ -9,27 +9,22 @@ import Foundation
 import SwiftData
 
 @Model
-class ExtraHabit: HabitDetail {
-    var uuid: String = UUID().uuidString
-    var timeSlot: TimeSlot = TimeSlot.morning
-    
+class ExtraHabit: BaseHabit {
     var habit: ExtraHabitType?
-    
-    var quantity: Int?
-    var startTime: Date?
-    var endTime: Date?
-    
+
     init(
         habit: ExtraHabitType? = nil,
         quantity: Int? = nil,
         startTime: Date? = nil,
         endTime: Date? = nil
     ) {
-        self.timeSlot = timeSlot
         self.habit = habit
-        self.quantity = quantity
-        self.startTime = startTime
-        self.endTime = endTime
+        super.init(
+            timeSlot: .extra,
+            quantity: quantity,
+            startTime: startTime,
+            endTime: endTime
+        )
     }
 }
 
