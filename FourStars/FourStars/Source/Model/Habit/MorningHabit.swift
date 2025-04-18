@@ -9,15 +9,15 @@ import Foundation
 import SwiftData
 
 @Model
-class MorningHabit {
+class MorningHabit: HabitType {
     var timeSlot: TimeSlot = TimeSlot.morning
-    var habit: AfternoonHabitType?
+    var habit: MorningHabitType?
     
     @Relationship
     var baseHabit: BaseHabit
 
     init(
-        habit: AfternoonHabitType? = nil,
+        habit: MorningHabitType? = nil,
         baseHabit: BaseHabit
     ) {
         self.habit = habit
@@ -25,7 +25,7 @@ class MorningHabit {
     }
 }
 
-enum MorningHabitType: Codable {
+enum MorningHabitType: CaseIterable {
     case drinkWater(count: Int)
     case wakeUp(time: Int)
     case stretch
@@ -42,6 +42,11 @@ enum MorningHabitType: Codable {
             return "스트레칭"
         }
     }
+}
+
+extension MorningHabit {
+    static var stub01: MorningHabit = .init(baseHabit: .stub01)
+    static var stub02: MorningHabit = .init(habit: .drinkWater(count: 1), baseHabit: .stub01)
 }
     
 //    var id: String { rawValue } // Identifiable 프로토콜을 따를 때 사용, enum에서는 단순 반복만을 위해서 이렇게 작성, 보통은 UUID() 삽입

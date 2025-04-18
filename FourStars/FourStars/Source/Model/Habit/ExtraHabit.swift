@@ -9,15 +9,15 @@ import Foundation
 import SwiftData
 
 @Model
-class ExtraHabit {
+class ExtraHabit: HabitType {
     var timeSlot: TimeSlot = TimeSlot.extra
-    var habit: AfternoonHabitType?
+    var habit: ExtraHabit?
     
     @Relationship
     var baseHabit: BaseHabit
 
     init(
-        habit: AfternoonHabitType? = nil,
+        habit: ExtraHabit? = nil,
         baseHabit: BaseHabit
     ) {
         self.habit = habit
@@ -34,6 +34,6 @@ enum ExtraHabitType: String, CaseIterable, Identifiable, Codable {
     
 }
 
-//extension ExtraHabit {
-//    static var stub01: ExtraHabit = .init(habit: .deepBreath, quantity: nil, startTime: nil, endTime: nil)
-//}
+extension ExtraHabit {
+    static var stub01: ExtraHabit = .init(baseHabit: .stub01)
+}

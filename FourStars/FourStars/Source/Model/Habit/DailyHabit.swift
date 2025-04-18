@@ -31,3 +31,18 @@ class DailyHabit {
         self.extraHabit = extraHabit
     }
 }
+
+extension DailyHabit {
+    static var stub01: DailyHabit = .init(today: Date())
+}
+
+extension DailyHabit {
+    func isSaved() -> Bool {
+        if morningHabit != nil && afternoonHabit != nil && eveningHabit != nil && extraHabit != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+

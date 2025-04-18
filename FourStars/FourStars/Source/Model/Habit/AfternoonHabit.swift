@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class AfternoonHabit {
+class AfternoonHabit: HabitType {
     var timeSlot: TimeSlot = TimeSlot.afternoon
     var habit: AfternoonHabitType?
     
@@ -33,6 +33,6 @@ enum AfternoonHabitType: String, CaseIterable, Identifiable, Codable {
     var id: String { rawValue }
 }
 
-//extension AfternoonHabit {
-//    static var stub01: AfternoonHabit = .init(habit: .meditate, quantity: nil, startTime: nil, endTime: nil)
-//}
+extension AfternoonHabit {
+    static var stub01: AfternoonHabit = .init(baseHabit: .stub01)
+}
