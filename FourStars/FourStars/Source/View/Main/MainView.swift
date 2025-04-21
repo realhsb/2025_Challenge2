@@ -5,6 +5,7 @@
 //  Created by Soop on 4/15/25.
 //
 
+import Foundation
 import SwiftUI
 import SwiftData
 
@@ -13,16 +14,25 @@ struct MainView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Query private var habits: [MyHabit]
+    @Query private var dailyStamps: [DailyStamp]
+    var todayDailyStamp: DailyStamp {
+        let today: Date = Date().strippedTime
+        return dailyStamps.filter({ $0.date == today }).first ?? .stub01
+    }
     
     @State var isEditing = false
     @State var isPresentSheet = false
     @State var timeSlot: TimeSlot? = nil
+
     
     var body: some View {
         VStack {
+            
+            StampView(myHabit: habits.first ?? .stub01, todayDailyStamp: todayDailyStamp, timeSlot: $timeSlot, isEditing: $isEditing)
+            
             if isEditing {
                 Text("수정 모드")
-                StampView(myHabit: habits.first ?? .stub01, isPresentSheet: $isPresentSheet, timeSlot: $timeSlot, isEditing: true)
+                
                 Button {
                     try? self.modelContext.save()
                     isEditing.toggle()
@@ -32,7 +42,6 @@ struct MainView: View {
                 }
             } else {
                 Text("인증 모드")
-                StampView(myHabit: habits.first ?? .stub01, isPresentSheet: $isPresentSheet, timeSlot: $timeSlot, isEditing: false)
             }
         }
         .onAppear {
@@ -43,7 +52,7 @@ struct MainView: View {
                 }
             }
         }
-        .sheet(item: $timeSlot) { timeSlot in
+        .sheet(item: $timeSlot) { timeSlot in // item이 바뀌면 감지하고 sheet ㄷ두두두등장
             ScrollView {
                 VStack {
                     switch timeSlot {
@@ -80,7 +89,25 @@ struct MainView: View {
                             }
                         }
                     }
-
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var popUpView: some View {
+        VStack {
+            HStack {
+                Button {
+                    
+                } label: {
+                    Text("확인")
+                }
+                
+                Button {
+                    
+                } label: {
+                    Text("취소")
                 }
             }
         }

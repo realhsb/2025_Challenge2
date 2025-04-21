@@ -11,25 +11,26 @@ import SwiftData
 struct StampView: View {
     @Query(sort: \DailyStamp.date) private var dailyStamps: [DailyStamp]
     @Query private var myHabits: [MyHabit]
+    
     @Environment(\.modelContext) private var context
     
     @Bindable var myHabit: MyHabit
+    @Bindable var todayDailyStamp: DailyStamp
+
     
-    @Binding var isPresentSheet: Bool
+//    @Binding var isPresentSheet: Bool
     @Binding var timeSlot: TimeSlot?
 
-    var isEditing: Bool
+    @Binding var isEditing: Bool
 
     var body: some View {
         VStack(spacing: 0) {
-            
-            Text(myHabit.date.description)
-            
+            Text(DateFormatter.stampDateFormatter.string(from: todayDailyStamp.date))
             Group {
                 if isEditing {
                     isEditingView
                 } else {
-                    
+                    isCheckingView
                 }
                 
             }
@@ -39,6 +40,68 @@ struct StampView: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         
+    }
+    
+    // 인증모드
+    var isCheckingView: some View {
+        VStack(spacing: -40) {
+                       
+            Button {
+                todayDailyStamp.morningResult.status = .success
+                try? context.save()
+            } label: {
+                todayDailyStamp.morningResult.star.image
+                    .overlay {
+                        if todayDailyStamp.morningResult.status == .notDone {
+                            Text(myHabit.morningHabit.description)
+                        }
+                    }
+            }
+            .padding(.leading, 60)
+            
+            Button {
+                todayDailyStamp.afternoonResult.status = .success
+                try? context.save()
+                print("StampView - isCheckingView - afternoon")
+            } label: {
+                todayDailyStamp.afternoonResult.star.image
+                    .overlay {
+                        if todayDailyStamp.afternoonResult.status == .notDone {
+                            Text(myHabit.afternoonHabit.description)
+                        }
+                    }
+            }
+            .padding(.leading, -60)
+            
+            Button {
+                todayDailyStamp.eveningResult.status = .success
+                try? context.save()
+                print("StampView - isCheckingView - evening")
+            } label: {
+                todayDailyStamp.eveningResult.star.image
+                    .overlay {
+                        if todayDailyStamp.eveningResult.status == .notDone {
+                            Text(myHabit.eveningHabit.description)
+                        }
+                    }
+            }
+            .padding(.leading, 60)
+            
+            Button {
+                todayDailyStamp.extraResult.status = .success
+                try? context.save()
+                print("StampView - isCheckingView - extra")
+            } label: {
+                todayDailyStamp.extraResult.star.image
+                    .overlay {
+                        if todayDailyStamp.extraResult.status == .notDone {
+                            Text(myHabit.extraHabit.description)
+                        }
+                    }
+            }
+            .padding(.leading, -60)
+            
+        }
     }
     
     // 편집모드
@@ -94,5 +157,5 @@ struct StampView: View {
 }
 
 #Preview {
-    StampView(myHabit: MyHabit(date: Date()), isPresentSheet: .constant(false), timeSlot: .constant(.morning), isEditing: true)
+    StampView(myHabit: MyHabit(date: Date()), todayDailyStamp: .stub01, timeSlot: .constant(.morning), isEditing: .constant(false))
 }

@@ -18,7 +18,7 @@ class DailyStamp {
     @Relationship var extraResult: HabitResult
 
     init(date: Date) {
-        self.date = date
+        self.date = date.strippedTime // 시분초 00으로 설정
         self.morningResult = HabitResult(status: .notDone)
         self.afternoonResult = HabitResult(status: .notDone)
         self.eveningResult = HabitResult(status: .notDone)

@@ -10,21 +10,28 @@ import Foundation
 
 @Model
 class HabitResult {
-
     var status: HabitStatus = HabitStatus.notDone
-    var star: Star
+    private var fixedSuccessStar: Star? = nil
 
-    init(
-        status: HabitStatus
-    ) {
-        
+    var star: Star {
         switch status {
         case .notDone:
-            self.star = Star.gray
+            return .gray
         case .failure:
-            self.star = Star.red
+            return .red
         case .success:
-            self.star = Star.successColors.randomElement() ?? Star.yellow
+            return fixedSuccessStar ?? {
+                let color = Star.successColors.randomElement() ?? .yellow
+                fixedSuccessStar = color
+                return color
+            }()
+        }
+    }
+
+    init(status: HabitStatus) {
+        self.status = status
+        if status == .success {
+            fixedSuccessStar = Star.successColors.randomElement() ?? .yellow
         }
     }
 }

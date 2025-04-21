@@ -15,7 +15,7 @@ enum HabitStatus: Codable {
     var star: Star {
             switch self {
             case .notDone:
-                return .gray
+                return .noneText
             case .failure:
                 return .red
             case .success:

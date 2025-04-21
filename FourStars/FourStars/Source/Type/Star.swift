@@ -43,7 +43,7 @@ enum Star: String, Codable, CaseIterable {
     }
     
     static var successColors: [Star] {
-            return [.lightBlue, .orange, .pink, .purple, .yellow]
+        return [.lightGreen, .gray, .lightBlue, .orange, .pink, .purple, .yellow]
     }
         
 //    var image: Image {
