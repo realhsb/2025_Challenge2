@@ -26,12 +26,6 @@ class DailyStamp {
     }
 }
 
-//@Model
-//class TotalStamp {
-//    @Relationship(deleteRule: .cascade)
-//    var dailyStamps: [DailyStamp] = []
-//    
-//    init(dailyStamps: [DailyStamp]) {
-//        self.dailyStamps = dailyStamps
-//    }
-//}
+extension DailyStamp {
+    static var stub01: DailyStamp = .init(date: Date().strippedTime)
+}
