@@ -10,6 +10,9 @@ enum TimeSlot: String, Codable, Identifiable, CaseIterable {
     case afternoon
     case evening
     case extra
+}
+
+extension TimeSlot {
     
     var id: String { rawValue }
     
