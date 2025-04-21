@@ -9,28 +9,21 @@ import Foundation
 import SwiftData
 
 @Model
-class AfternoonHabit: HabitType {
+class AfternoonHabit {
     var timeSlot: TimeSlot = TimeSlot.afternoon
-    var habit: AfternoonHabitType?
+//    var habit: AfternoonHabitType?
+    var habitString: String?
     
     @Relationship
     var baseHabit: BaseHabit
 
     init(
-        habit: AfternoonHabitType? = nil,
+        habitString: String? = nil,
         baseHabit: BaseHabit
     ) {
-        self.habit = habit
+        self.habitString = habitString
         self.baseHabit = baseHabit
     }
-}
-
-enum AfternoonHabitType: String, CaseIterable, Identifiable, Codable {
-    case walk = "산책"
-    case read = "책"
-    case meditate = "명상"
-    
-    var id: String { rawValue }
 }
 
 extension AfternoonHabit {

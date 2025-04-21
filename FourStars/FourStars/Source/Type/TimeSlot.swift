@@ -10,6 +10,9 @@ enum TimeSlot: String, Codable, Identifiable, CaseIterable {
     case afternoon
     case evening
     case extra
+}
+
+extension TimeSlot {
     
     var id: String { rawValue }
     
@@ -21,17 +24,4 @@ enum TimeSlot: String, Codable, Identifiable, CaseIterable {
             case .extra: return "기타"
         }
     }
-    
-//    var startTime: Date {
-//        switch self {
-//        case .morning:
-//            <#code#>
-//        case .afternoon:
-//            <#code#>
-//        case .evening:
-//            <#code#>
-//        case .extra:
-//            <#code#>
-//        }
-//    }
 }

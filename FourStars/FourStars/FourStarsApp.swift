@@ -17,16 +17,15 @@ struct FourStarsApp: App {
         }
         .modelContainer(for: [
             
-            MorningHabit.self,
-            AfternoonHabit.self,
-            EveningHabit.self,
-            ExtraHabit.self,
-            DailyHabit.self,
-            
+//            MorningHabit.self,
+//            AfternoonHabit.self,
+//            EveningHabit.self,
+//            ExtraHabit.self,
+            MyHabit.self,
             
             HabitResult.self,
             DailyStamp.self,
-            TotalStamp.self
+//            TotalStamp.self
         ])
     }
 }

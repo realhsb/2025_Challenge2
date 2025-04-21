@@ -10,15 +10,15 @@ import SwiftData
 
 @Model
 class DailyStamp {
-    var todayDate: Date
+    var date: Date
 
     @Relationship var morningResult: HabitResult
     @Relationship var afternoonResult: HabitResult
     @Relationship var eveningResult: HabitResult
     @Relationship var extraResult: HabitResult
 
-    init(todayDate: Date) {
-        self.todayDate = todayDate
+    init(date: Date) {
+        self.date = date
         self.morningResult = HabitResult(status: .notDone)
         self.afternoonResult = HabitResult(status: .notDone)
         self.eveningResult = HabitResult(status: .notDone)
@@ -26,12 +26,12 @@ class DailyStamp {
     }
 }
 
-@Model
-class TotalStamp {
-    @Relationship(deleteRule: .cascade)
-    var dailyStamps: [DailyStamp] = []
-    
-    init(dailyStamps: [DailyStamp]) {
-        self.dailyStamps = dailyStamps
-    }
-}
+//@Model
+//class TotalStamp {
+//    @Relationship(deleteRule: .cascade)
+//    var dailyStamps: [DailyStamp] = []
+//    
+//    init(dailyStamps: [DailyStamp]) {
+//        self.dailyStamps = dailyStamps
+//    }
+//}

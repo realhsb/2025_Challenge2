@@ -6,44 +6,61 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct StampView: View {
+    @Query(sort: \DailyStamp.date) private var dailyStamps: [DailyStamp]
+    @Query private var myHabits: [MyHabit]
+    @Environment(\.modelContext) private var context
     
-//    @Binding 
+    @Bindable var myHabit: MyHabit
+    
+    @Binding var isPresentSheet: Bool
+    @Binding var timeSlot: TimeSlot?
+
+    var isEditing: Bool
 
     var body: some View {
         VStack(spacing: 0) {
             
-            Text("2025년 4월 4일")
+            Text(myHabit.date.description)
             
-            VStack(spacing: -50) {
-//                ForEach(Array(starList2.enumerated()), id: \.offset) { index, image in
-//                    
-//                    
-//                    
-//                    if index % 2 == 0 {
-//                        HStack {
-//                            Image(uiImage: image)
-//                            Spacer()
-//                                .frame(width: 60)
-//                        }
-//                    } else {
-//                        HStack {
-//                            Spacer()
-//                                .frame(width: 60)
-//                            Image(uiImage: image)
-//                        }
-//                    }
-//                }
+            Group {
+                if isEditing {
+                    isEditingView
+                } else {
+                    
+                }
+                
             }
             .padding(.horizontal, 50)
             .padding(.vertical, 40)
             .background(Color.black)
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        
+    }
+    
+    // 편집모드
+    var isEditingView: some View {
+        VStack(spacing: -40) {
+                       
+            Button {
+                timeSlot = .morning
+                isPresentSheet.toggle()
+//                timeSlot = .morning
+                print("StampView - isEditingView - morning")
+            } label: {
+                Star.noneText.image
+                    .overlay {
+                        Text(myHabit.morningHabit.description)
+                    }
+            }
+            .padding(.leading, 60)
+        }
     }
 }
 
 #Preview {
-    StampView()
+    StampView(myHabit: MyHabit(date: Date()), isPresentSheet: .constant(false), timeSlot: .constant(.morning), isEditing: true)
 }

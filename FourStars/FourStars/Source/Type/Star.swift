@@ -11,28 +11,34 @@ import SwiftUI
 enum Star: String, Codable, CaseIterable {
     case gray
     case lightBlue
+    case lightGreen
     case orange
     case pink
     case purple
     case red
     case yellow
+    case noneText
     
     var image: Image {
         switch self {
             case .gray:
-            return Image("Star_Gray")
+            return Image(.starGray)
         case .lightBlue:
-            return Image("Star_LightBlue")
+            return Image(.starLightBlue)
+        case .lightGreen:
+            return Image(.starLightGreen)
         case .orange:
-            return Image("Star_Orange")
+            return Image(.starOrange)
         case .pink:
-            return Image("Star_Pink")
+            return Image(.starPink)
         case .purple:
-            return Image("Star_Purple")
+            return Image(.starPurple)
         case .red:
-            return Image("Star_Red")
+            return Image(.starRed)
         case .yellow:
-            return Image("Star_Yellow")
+            return Image(.starYellow)
+        case .noneText:
+            return Image(.starNoneText)
         }
     }
     

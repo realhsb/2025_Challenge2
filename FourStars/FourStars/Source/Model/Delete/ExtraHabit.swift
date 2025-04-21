@@ -9,31 +9,28 @@ import Foundation
 import SwiftData
 
 @Model
-class ExtraHabit: HabitType {
+class ExtraHabit {
     var timeSlot: TimeSlot = TimeSlot.extra
-    var habit: ExtraHabit?
+    var habitString: String?
     
     @Relationship
     var baseHabit: BaseHabit
 
     init(
-        habit: ExtraHabit? = nil,
+        habitString: String? = nil,
         baseHabit: BaseHabit
     ) {
-        self.habit = habit
+        self.habitString = habitString
         self.baseHabit = baseHabit
     }
 }
 
-enum ExtraHabitType: String, CaseIterable, Identifiable, Codable {
-    case gratitude = "감사 표현"
-    case noPhone = "폰 사용 줄이기"
-    case deepBreath = "심호흡"
-    
-    var id: String { rawValue }
-    
-}
+
 
 extension ExtraHabit {
+//    var description: String {
+//        rawValue
+//    }
+    
     static var stub01: ExtraHabit = .init(baseHabit: .stub01)
 }
