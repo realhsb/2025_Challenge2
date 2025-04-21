@@ -11,6 +11,7 @@ import SwiftData
 struct MainView: View {
     
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var habits: [MyHabit]
     
     @State var isEditing = false
@@ -22,6 +23,13 @@ struct MainView: View {
             if isEditing {
                 Text("수정 모드")
                 StampView(myHabit: habits.first ?? .stub01, isPresentSheet: $isPresentSheet, timeSlot: $timeSlot, isEditing: true)
+                Button {
+                    try? self.modelContext.save()
+                    isEditing.toggle()
+                } label: {
+                    Text("습관 저장")
+                    
+                }
             } else {
                 Text("인증 모드")
                 StampView(myHabit: habits.first ?? .stub01, isPresentSheet: $isPresentSheet, timeSlot: $timeSlot, isEditing: false)
@@ -42,28 +50,37 @@ struct MainView: View {
                     case .morning:
                         ForEach(MorningHabitType.allCases, id: \.self) { type in
                             Button {
-//                                let morningHabit =
-//                                self.habit.morningHabit!.habit = type
+                                self.habits.first?.morningHabit = type
                             } label: {
                                 Text(type.description)
                             }
                         }
                     case .afternoon:
                         ForEach(AfternoonHabitType.allCases, id: \.self) { type in
-                            Text(type.description)
+                            Button {
+                                self.habits.first?.afternoonHabit = type
+                            } label: {
+                                Text(type.description)
+                            }
                         }
                     case .evening:
                         ForEach(EveningHabitType.allCases, id: \.self) { type in
-                            Text(type.description)
+                            Button {
+                                self.habits.first?.eveningHabit = type
+                            } label: {
+                                Text(type.description)
+                            }
                         }
                     case .extra:
                         ForEach(ExtraHabitType.allCases, id: \.self) { type in
-                            Text(type.description)
+                            Button {
+                                self.habits.first?.extraHabit = type
+                            } label: {
+                                Text(type.description)
+                            }
                         }
-                    case nil:
-                        Text("nil")
                     }
-                
+
                 }
             }
         }

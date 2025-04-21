@@ -47,8 +47,6 @@ struct StampView: View {
                        
             Button {
                 timeSlot = .morning
-                isPresentSheet.toggle()
-//                timeSlot = .morning
                 print("StampView - isEditingView - morning")
             } label: {
                 Star.noneText.image
@@ -57,6 +55,40 @@ struct StampView: View {
                     }
             }
             .padding(.leading, 60)
+            
+            Button {
+                timeSlot = .afternoon
+                print("StampView - isEditingView - afternoon")
+            } label: {
+                Star.noneText.image
+                    .overlay {
+                        Text(myHabit.afternoonHabit.description)
+                    }
+            }
+            .padding(.leading, -60)
+            
+            Button {
+                timeSlot = .evening
+                print("StampView - isEditingView - evening")
+            } label: {
+                Star.noneText.image
+                    .overlay {
+                        Text(myHabit.eveningHabit.description)
+                    }
+            }
+            .padding(.leading, 60)
+            
+            Button {
+                timeSlot = .extra
+                print("StampView - isEditingView - extra")
+            } label: {
+                Star.noneText.image
+                    .overlay {
+                        Text(myHabit.extraHabit.description)
+                    }
+            }
+            .padding(.leading, -60)
+            
         }
     }
 }
