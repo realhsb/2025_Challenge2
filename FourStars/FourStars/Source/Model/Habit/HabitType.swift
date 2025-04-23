@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum MorningHabitType: String, Codable, CaseIterable, Hashable {
     
@@ -29,6 +30,19 @@ extension MorningHabitType {
             return "스트레칭"
         }
     }
+    
+    var image: Image {
+        switch self {
+        case .none:
+            return Image(.iconNone)
+        case .drinkWater:
+            return Image(.iconWater)
+        case .wakeUp:
+            return Image(.iconWater)
+        case .stretch:
+            return Image(.iconWater)
+        }
+    }
 }
 
 enum AfternoonHabitType: String, CaseIterable, Hashable, Codable {
@@ -49,6 +63,19 @@ extension AfternoonHabitType {
             return "책 읽기"
         case .meditate:
             return "명상"
+        }
+    }
+    
+    var image: Image {
+        switch self {
+        case .none:
+            return Image(.iconNone)
+        case .walk:
+            return Image(.iconNone)
+        case .read:
+            return Image(.iconNone)
+        case .meditate:
+            return Image(.iconNone)
         }
     }
 }
@@ -74,6 +101,19 @@ extension EveningHabitType {
             return "정리 정돈"
         }
     }
+    
+    var image: Image {
+        switch self {
+        case .none:
+            return Image(.iconNone)
+        case .reflect:
+            return Image(.iconNone)
+        case .journal:
+            return Image(.iconNone)
+        case .tidyUp:
+            return Image(.iconNone)
+        }
+    }
 }
 
 enum ExtraHabitType: String, CaseIterable, Hashable, Codable {
@@ -86,5 +126,18 @@ enum ExtraHabitType: String, CaseIterable, Hashable, Codable {
 extension ExtraHabitType {
     var description: String {
         rawValue
+    }
+    
+    var image: Image {
+        switch self {
+        case .none:
+            return Image(.iconNone)
+        case .gratitude:
+            return Image(.iconNone)
+        case .noPhone:
+            return Image(.iconNone)
+        case .deepBreath:
+            return Image(.iconNone)
+        }
     }
 }

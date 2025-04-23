@@ -10,13 +10,14 @@ import Foundation
 
 @Model
 class HabitResult {
+    var timeSlot: TimeSlot
     var status: HabitStatus = HabitStatus.notDone
     private var fixedSuccessStar: Star? = nil
 
     var star: Star {
         switch status {
         case .notDone:
-            return .gray
+            return .noneText
         case .failure:
             return .red
         case .success:
@@ -28,7 +29,8 @@ class HabitResult {
         }
     }
 
-    init(status: HabitStatus) {
+    init(timeSlot: TimeSlot, status: HabitStatus) {
+        self.timeSlot = timeSlot
         self.status = status
         if status == .success {
             fixedSuccessStar = Star.successColors.randomElement() ?? .yellow

@@ -19,6 +19,8 @@ enum Star: String, Codable, CaseIterable {
     case yellow
     case noneText
     
+    case errorYellow
+    
     var image: Image {
         switch self {
             case .gray:
@@ -39,6 +41,9 @@ enum Star: String, Codable, CaseIterable {
             return Image(.starYellow)
         case .noneText:
             return Image(.starNoneText)
+            
+        case .errorYellow:
+            return Image(.starErrorYellow)
         }
     }
     
