@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum MorningHabitType: String, Codable, CaseIterable, Hashable {
-    
+enum MorningHabitType: String, Codable, CaseIterable, HabitTypeProtocol {
     case none
     case drinkWater
     case wakeUp
@@ -17,6 +16,8 @@ enum MorningHabitType: String, Codable, CaseIterable, Hashable {
 }
 
 extension MorningHabitType {
+    
+    var isNone: Bool { self == .none }
     
     var description: String {
         switch self {
@@ -45,7 +46,7 @@ extension MorningHabitType {
     }
 }
 
-enum AfternoonHabitType: String, CaseIterable, Hashable, Codable {
+enum AfternoonHabitType: String, Codable, CaseIterable, HabitTypeProtocol {
     case none
     case walk
     case read
@@ -53,6 +54,9 @@ enum AfternoonHabitType: String, CaseIterable, Hashable, Codable {
 }
 
 extension AfternoonHabitType {
+    
+    var isNone: Bool { self == .none }
+    
     var description: String {
         switch self {
         case .none:
@@ -80,7 +84,7 @@ extension AfternoonHabitType {
     }
 }
 
-enum EveningHabitType: String, CaseIterable, Hashable, Codable {
+enum EveningHabitType: String, Codable, CaseIterable, HabitTypeProtocol {
     case none
     case reflect
     case journal
@@ -88,6 +92,8 @@ enum EveningHabitType: String, CaseIterable, Hashable, Codable {
 }
 
 extension EveningHabitType {
+    
+    var isNone: Bool { self == .none }
     
     var description: String {
         switch self {
@@ -116,7 +122,7 @@ extension EveningHabitType {
     }
 }
 
-enum ExtraHabitType: String, CaseIterable, Hashable, Codable {
+enum ExtraHabitType: String, Codable, CaseIterable, HabitTypeProtocol {
     case none = "기타"
     case gratitude = "감사 표현"
     case noPhone = "폰 사용 줄이기"
@@ -124,6 +130,9 @@ enum ExtraHabitType: String, CaseIterable, Hashable, Codable {
 }
 
 extension ExtraHabitType {
+    
+    var isNone: Bool { self == .none }
+    
     var description: String {
         rawValue
     }

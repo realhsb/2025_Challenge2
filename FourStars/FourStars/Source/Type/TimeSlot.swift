@@ -30,11 +30,11 @@ extension TimeSlot {
     var timeRange: (start: DateComponents, end: DateComponents)? {
         switch self {
         case .morning:
-            return (start: DateComponents(hour: 6), end: DateComponents(hour: 10))
+            return (start: DateComponents(hour: 6, minute: 0), end: DateComponents(hour: 10, minute: 59))
         case .afternoon:
-            return (start: DateComponents(hour: 12), end: DateComponents(hour: 14))
+            return (start: DateComponents(hour: 11, minute: 0), end: DateComponents(hour: 16, minute: 59))
         case .evening:
-            return (start: DateComponents(hour: 18), end: DateComponents(hour: 20))
+            return (start: DateComponents(hour: 17, minute: 0), end: DateComponents(hour: 23, minute: 59))
         case .extra:
             return nil
         }
@@ -52,6 +52,10 @@ extension TimeSlot {
         else {
             return false
         }
+        
+        // 디버깅용 출력
+         print("Range: \(startDate) ~ \(endDate)")
+         print("Now: \(date)")
         return (startDate ... endDate).contains(date)
     }
 }

@@ -40,7 +40,6 @@ struct StampView: View {
                     
                 }
                 .frame(maxWidth: 400)
-                //            .padding(.horizontal, 50)
                 .padding(.vertical, 40)
                 .background(Color.primary)
             }
@@ -52,137 +51,55 @@ struct StampView: View {
     // 인증모드
     var isCheckingView: some View {
         VStack(spacing: -40) {
-            let now = 
-            Button {
-                let now = Date()
-                if TimeSlot.morning.contains(now) {
-                    print("아침 인증 성공! 😎")
-                    todayDailyStamp.morningResult.status = .success
+            ForEach(Array(todayDailyStamp.habitResults.enumerated()), id: \.element.timeSlot) { index, today in
+                Button {
+//                    let now = Date()
+//                    print(today)
+//                    print(today.status)
+                    today.status = .success
                     try? context.save()
-                } else {
-                    print("아침 인증 실패!")
-                    isPopUpShow = true
+//                    isPopUpShow = true
+                    
+                    print(today.timeSlot.contains(Date()))
+                    print("\(today.timeSlot) 인증 성공!")
+//                    print("\(today.timeSlot.timeRange)")
+                } label: {
+                    today.star.image
+                        .overlay {
+                            if today.status == .notDone {
+                                VStack {
+                                    Text(myHabit.habitTypeMap[index].value.description)
+                                        .foregroundStyle(Color.textGray)
+                                    if !today.timeSlot.contains(Date()) {
+                                        Text("인증 가능 시간대가 아닙니다!")
+                                    }
+                                }
+                            }
+                            
+                        }
                 }
-                
-            } label: {
-                todayDailyStamp.morningResult.star.image
-                    .overlay {
-                        if todayDailyStamp.morningResult.status == .notDone {
-                            Text(myHabit.morningHabit.description)
-                                .foregroundStyle(Color.textGray)
-                        }
-                    }
+                .disabled(!today.timeSlot.contains(Date()) || today.status == .success)
+                .padding(index % 2 == 0 ? .leading : .trailing, 60)
             }
-            .disabled(myHabit.morningHabit == .none)
-            .padding(.leading, 60)
-            
-            Button {
-                let now = Date()
-                if TimeSlot.morning.contains(now) {
-                    print("점심 인증 성공! 😎")
-                    todayDailyStamp.afternoonResult.status = .success
-                    try? context.save()
-                } else {
-                    print("점심 인증 실패!")
-                    isPopUpShow = true
-                }
-                
-                print("StampView - isCheckingView - afternoon")
-            } label: {
-                todayDailyStamp.afternoonResult.star.image
-                    .overlay {
-                        if todayDailyStamp.afternoonResult.status == .notDone {
-                            Text(myHabit.afternoonHabit.description)
-                                .foregroundStyle(Color.textGray)
-                        }
-                    }
-            }
-            .disabled(myHabit.afternoonHabit == .none)
-            .padding(.trailing, 60)
-            
-            Button {
-                todayDailyStamp.eveningResult.status = .success
-                try? context.save()
-                print("StampView - isCheckingView - evening")
-            } label: {
-                todayDailyStamp.eveningResult.star.image
-                    .overlay {
-                        if todayDailyStamp.eveningResult.status == .notDone {
-                            Text(myHabit.eveningHabit.description)
-                                .foregroundStyle(Color.textGray)
-                        }
-                    }
-            }
-            .disabled(myHabit.eveningHabit == .none)
-            .padding(.leading, 60)
-            
-            Button {
-                todayDailyStamp.extraResult.status = .success
-                try? context.save()
-                print("StampView - isCheckingView - extra")
-            } label: {
-                todayDailyStamp.extraResult.star.image
-                    .overlay {
-                        if todayDailyStamp.extraResult.status == .notDone {
-                            Text(myHabit.extraHabit.description)
-                                .foregroundStyle(Color.textGray)
-                        }
-                    }
-            }
-            .disabled(myHabit.extraHabit == .none)
-            .padding(.leading, -60)
-            
         }
     }
     
     // 편집모드
     var isEditingView: some View {
         VStack(spacing: -40) {
-                       
-            Button {
-                timeSlot = .morning
-                print("StampView - isEditingView - morning")
-            } label: {
-                Star.noneText.image
-                    .overlay {
-                        Text(myHabit.morningHabit.description)
-                    }
+            ForEach(Array(myHabit.habitTypeMap.enumerated()), id: \.element.slot) { index, today in
+                let slot = today.slot
+                let habit = today.value
+                Button {
+                    timeSlot = slot
+                } label: {
+                    Star.noneText.image
+                        .overlay {
+                            Text(habit.description)
+                        }
+                }
+                .padding(index % 2 == 0 ? .leading : .trailing, 60)
             }
-            .padding(.leading, 60)
-            
-            Button {
-                timeSlot = .afternoon
-                print("StampView - isEditingView - afternoon")
-            } label: {
-                Star.noneText.image
-                    .overlay {
-                        Text(myHabit.afternoonHabit.description)
-                    }
-            }
-            .padding(.leading, -60)
-            
-            Button {
-                timeSlot = .evening
-                print("StampView - isEditingView - evening")
-            } label: {
-                Star.noneText.image
-                    .overlay {
-                        Text(myHabit.eveningHabit.description)
-                    }
-            }
-            .padding(.leading, 60)
-            
-            Button {
-                timeSlot = .extra
-                print("StampView - isEditingView - extra")
-            } label: {
-                Star.noneText.image
-                    .overlay {
-                        Text(myHabit.extraHabit.description)
-                    }
-            }
-            .padding(.leading, -60)
-            
         }
         .foregroundStyle(Color.textGray)
     }
