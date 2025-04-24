@@ -28,35 +28,49 @@ struct MainView: View {
     var body: some View {
         ZStack {
             VStack {
+                HStack {
+                    Text(isEditing ? "수정 모드" : "인증 모드")
+                        .font(.seoulHangangB16)
+                        .foregroundStyle(.primary)
+                        .padding(.leading, 20)
+                    
+                    Spacer()
+                }
                 
                 StampView(myHabit: habits.first ?? .stub01, todayDailyStamp: todayDailyStamp, timeSlot: $timeSlot, isEditing: $isEditing, isPopUpShow: $isPopUpShow)
                 
                 if isEditing {
-                    Text("수정 모드")
-                    
                     Button {
                         try? self.modelContext.save()
                         isEditing.toggle()
                     } label: {
-                        Text("습관 저장")
-                        
+                        VStack {
+                            Image(.buttonPaper)
+                            Text("습관 저장")
+                                .foregroundStyle(.primary)
+                                .font(.seoulHangangB16)
+                            
+                        }
                     }
-                } else {
-                    Text("인증 모드")
-                }
-                
-                if !isEditing {
+                } else  {
                     Button {
                         isEditing.toggle()
                     } label: {
-                        Text("수정하기")
+                        VStack {
+                            Image(.buttonStamp)
+                            Text("수정하기")
+                                .foregroundStyle(.primary)
+                                .font(.seoulHangangB16)
+                            
+                        }
                     }
                 }
+                
             }
-            
             if isPopUpShow {
                 popUpView
             }
+        
         }
         .onAppear {
             if let habit = habits.first {
@@ -67,54 +81,65 @@ struct MainView: View {
             }
         }
         .sheet(item: $timeSlot) { timeSlot in // item이 바뀌면 감지하고 sheet ㄷ두두두등장
-            ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    switch timeSlot {
-                    case .morning:
-                        ForEach(MorningHabitType.allCases, id: \.self) { type in
-                            Button {
-                                self.habits.first?.morningHabit = type
-                            } label: {
-                                VStack {
-                                    type.image
+            VStack {
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        switch timeSlot {
+                        case .morning:
+                            ForEach(MorningHabitType.allCases, id: \.self) { type in
+                                Button {
+                                    self.habits.first?.morningHabit = type
+                                } label: {
+                                    VStack {
+                                        type.image
+                                        Text(type.description)
+                                            .foregroundStyle(Color.primary)
+                                    }
+                                }
+                            }
+                        case .afternoon:
+                            ForEach(AfternoonHabitType.allCases, id: \.self) { type in
+                                Button {
+                                    self.habits.first?.afternoonHabit = type
+                                } label: {
+                                    Text(type.description)
+                                        .foregroundStyle(Color.primary)
+                                }
+                            }
+                        case .evening:
+                            ForEach(EveningHabitType.allCases, id: \.self) { type in
+                                Button {
+                                    self.habits.first?.eveningHabit = type
+                                } label: {
+                                    Text(type.description)
+                                        .foregroundStyle(Color.primary)
+                                }
+                            }
+                        case .extra:
+                            ForEach(ExtraHabitType.allCases, id: \.self) { type in
+                                Button {
+                                    self.habits.first?.extraHabit = type
+                                } label: {
                                     Text(type.description)
                                         .foregroundStyle(Color.primary)
                                 }
                             }
                         }
-                    case .afternoon:
-                        ForEach(AfternoonHabitType.allCases, id: \.self) { type in
-                            Button {
-                                self.habits.first?.afternoonHabit = type
-                            } label: {
-                                Text(type.description)
-                                    .foregroundStyle(Color.primary)
-                            }
-                        }
-                    case .evening:
-                        ForEach(EveningHabitType.allCases, id: \.self) { type in
-                            Button {
-                                self.habits.first?.eveningHabit = type
-                            } label: {
-                                Text(type.description)
-                                    .foregroundStyle(Color.primary)
-                            }
-                        }
-                    case .extra:
-                        ForEach(ExtraHabitType.allCases, id: \.self) { type in
-                            Button {
-                                self.habits.first?.extraHabit = type
-                            } label: {
-                                Text(type.description)
-                                    .foregroundStyle(Color.primary)
-                            }
-                        }
                     }
                 }
+                .presentationDragIndicator(.hidden)
+                .padding(.top, 20)
+                
+//                Button {
+//                    
+//                } label: {
+//                    
+//                }
+                Spacer()
             }
             .padding(.leading, 10)
             .presentationDragIndicator(.hidden)
-            .presentationDetents([.fraction(2)])
+            .presentationDetents([.fraction(0.4)])
         }
     }
     

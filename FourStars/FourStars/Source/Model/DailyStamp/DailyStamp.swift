@@ -15,13 +15,16 @@ class DailyStamp {
     @Relationship var results: [HabitResult] = []
     
     var habitResults: [HabitResult] {
-            TimeSlot.allCases.map { slot in
-                results.first { $0.timeSlot == slot } ?? HabitResult(timeSlot: slot, status: .notDone)
-            }
+        TimeSlot.allCases.compactMap { slot in
+            results.first { $0.timeSlot == slot }
         }
+    }
 
     init(date: Date) {
         self.date = date.strippedTime // 시분초 00으로 설정
+//        self.results = TimeSlot.allCases.map {
+//            HabitResult(timeSlot: $0, status: .notDone)
+//        }
     }
 }
 

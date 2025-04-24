@@ -24,13 +24,21 @@ struct StampView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 0) {
-                
-                Text(DateFormatter.stampDateFormatter.string(from: todayDailyStamp.date))
-                    .frame(maxWidth: 400)
-                    .padding(.vertical, 10)
-                    .background(Color.primaryLight)
-                
-                    .frame(alignment: .leading)
+                HStack {
+                    Text(DateFormatter.stampDateFormatter.string(from: todayDailyStamp.date))
+                        
+                        .foregroundStyle(.primary)
+//                        .padding(.vertical, 20)
+                        
+                    Spacer()
+                    
+                    Text(todayDailyStamp.date.strippedTime == Date().strippedTime ? "오늘" : "")
+                }
+                .font(.seoulHangangB16)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
+                .background(Color.primaryLight)
+//                    .frame(alignment: .leading)
                 Group {
                     if isEditing {
                         isEditingView
@@ -53,16 +61,11 @@ struct StampView: View {
         VStack(spacing: -40) {
             ForEach(Array(todayDailyStamp.habitResults.enumerated()), id: \.element.timeSlot) { index, today in
                 Button {
-//                    let now = Date()
-//                    print(today)
-//                    print(today.status)
                     today.status = .success
                     try? context.save()
-//                    isPopUpShow = true
-                    
+                    print(today.status)
                     print(today.timeSlot.contains(Date()))
                     print("\(today.timeSlot) 인증 성공!")
-//                    print("\(today.timeSlot.timeRange)")
                 } label: {
                     today.star.image
                         .overlay {
@@ -70,12 +73,14 @@ struct StampView: View {
                                 VStack {
                                     Text(myHabit.habitTypeMap[index].value.description)
                                         .foregroundStyle(Color.textGray)
+                                        .font(.seoulHangangB16)
                                     if !today.timeSlot.contains(Date()) {
                                         Text("인증 가능 시간대가 아닙니다!")
+                                            .font(.caption)
                                     }
                                 }
+                                .padding(10)
                             }
-                            
                         }
                 }
                 .disabled(!today.timeSlot.contains(Date()) || today.status == .success)
