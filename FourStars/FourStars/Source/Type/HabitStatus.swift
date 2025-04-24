@@ -13,13 +13,13 @@ enum HabitStatus: Codable {
     case failure
     
     var star: Star {
-            switch self {
-            case .notDone:
-                return .noneText
-            case .failure:
-                return .red
-            case .success:
-                return Star.successColors.randomElement() ?? .lightBlue
-            }
+        switch self {
+        case .notDone:
+            return .noneText
+        case .failure:
+            return .red
+        case .success:
+            return Star.successColors.randomElement() ?? .lightBlue
+        }
     }
 }

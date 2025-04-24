@@ -16,6 +16,15 @@ class MyHabit {
     var eveningHabit: EveningHabitType = EveningHabitType.none
     var extraHabit: ExtraHabitType = ExtraHabitType.none
     
+    var habitTypeMap: [(slot: TimeSlot, value: any HabitTypeProtocol)] {
+            [
+                (.morning, morningHabit),
+                (.afternoon, afternoonHabit),
+                (.evening, eveningHabit),
+                (.extra, extraHabit)
+            ]
+        }
+    
     init(
         date: Date
     ) {

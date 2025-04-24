@@ -13,4 +13,10 @@ extension DateFormatter {
         formatter.dateFormat = "yyyy년 MM년 dd일"
         return formatter
     }()
+    
+    static let hourMinuteDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
 }

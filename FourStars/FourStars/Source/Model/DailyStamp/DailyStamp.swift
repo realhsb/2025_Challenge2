@@ -12,17 +12,19 @@ import SwiftData
 class DailyStamp {
     var date: Date
 
-    @Relationship var morningResult: HabitResult
-    @Relationship var afternoonResult: HabitResult
-    @Relationship var eveningResult: HabitResult
-    @Relationship var extraResult: HabitResult
+    @Relationship var results: [HabitResult] = []
+    
+    var habitResults: [HabitResult] {
+        TimeSlot.allCases.compactMap { slot in
+            results.first { $0.timeSlot == slot }
+        }
+    }
 
     init(date: Date) {
         self.date = date.strippedTime // 시분초 00으로 설정
-        self.morningResult = HabitResult(status: .notDone)
-        self.afternoonResult = HabitResult(status: .notDone)
-        self.eveningResult = HabitResult(status: .notDone)
-        self.extraResult = HabitResult(status: .notDone)
+//        self.results = TimeSlot.allCases.map {
+//            HabitResult(timeSlot: $0, status: .notDone)
+//        }
     }
 }
 
